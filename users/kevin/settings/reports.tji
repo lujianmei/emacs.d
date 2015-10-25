@@ -1,0 +1,161 @@
+navigator navbar {
+  hidereport 0
+}
+macro TaskTip [
+tooltip istask() -8<-
+'''开始日期: ''' <-query attribute='start'->
+'''结束日期: ''' <-query attribute='end'->
+----
+'''资源分配:'''
+
+<-query attribute='resources'->
+----
+'''前置任务: '''
+
+<-query attribute='precursors'->
+----
+'''后续任务: '''
+
+<-query attribute='followers'->
+->8-
+]
+macro AlertColor [
+    cellcolor plan.alert = 0 "#00D000" # green
+    cellcolor plan.alert = 1 "#D0D000" # yellow
+    cellcolor plan.alert = 2 "#D00000" # red
+]
+textreport frame "" {
+    header -8<-
+        == 项目信息 ==
+        <[navigator id="navbar"]>
+    ->8-
+    footer "----"
+
+    textreport index "项目综述" {
+        formats html
+        center '<[report id="overview"]>'
+    }
+
+    textreport "甘特图" {
+        formats html
+        center '<[report id="gantt_chart"]>'
+    }
+
+    textreport "任务状态" {
+        formats html
+        center -8<-
+            <[report id="status.dashboard"]>
+            ----
+            <[report id="status.completed"]>
+            ----
+            <[report id="status.ongoing"]>
+            ----
+            <[report id="status.future"]>
+        ->8-
+    }
+
+    textreport "资源列表" {
+        formats html
+        center '<[report id="contact_list"]>'
+    }
+
+    textreport "资源分配图" {
+        formats html
+        center '<[report id="resource_graph"]>'
+    }
+}
+taskreport overview "" {
+    scenarios actual
+    headline "项目综述"
+    columns no{title '序号'},
+            bsi{title 'WBS'},
+            name{title '名称'},
+            start{title '开始日期'},
+            end{title '结束日期'},
+            effort{title '工作量'},
+            cost{title '费用'},
+            revenue{title '收入'},
+            status{title '状态'},
+            complete{title '进度'}
+    loadunit days
+    hideresource @all
+    caption '工作量以每人每天计算。'
+}
+taskreport status "" {
+    scenarios actual
+    columns no{title '序号'},
+            bsi{title 'WBS' width 50},
+            name{title '名称' width 150},
+            start{title '开始日期' width 100},
+            end{title '结束日期' width 100},
+            effort{title '工作量' width 100},
+            alert{title '任务标记' tooltip plan.journal
+                          != '' "<-query attribute='journal'->" width 150},
+            status{title '任务状态' width 150}
+
+  taskreport dashboard "" {
+    headline "任务状态 (<-query attribute='now'->)"
+    columns name { title '名称' ${AlertColor} width 200},
+            resources { title '资源'
+                        width 200 ${AlertColor}
+                        listtype bullets
+                        listitem "<-query attribute='name'->"
+                        start ${projectstart} end ${projectend} },
+            alerttrend { title '倾向' ${AlertColor} width 50 },
+            journal { title '日志' width 350 ${AlertColor} }
+    journalmode status_up
+    journalattributes headline, author, date, summary, details
+    hidetask ~hasalert(0)
+    sorttasks alert.down, actual.end.up
+    period %{${now} - 1w} +1w
+  }
+  taskreport completed "" {
+    headline "已完成的任务"
+    hidetask ~(actual.end <= ${now})
+  }
+  taskreport ongoing "" {
+    headline "正在进行的任务"
+    hidetask ~((actual.start <= ${now}) & (actual.end > ${now}))
+  }
+  taskreport future "" {
+    headline "未开始的任务"
+    hidetask ~(actual.start > ${now})
+  }
+}
+taskreport gantt_chart "" {
+    scenarios plan, actual
+    headline "甘特图"
+    columns no{title '序号'},
+            bsi {title 'WBS'},
+            name {title '名称'},
+            start{title '开始日期'},
+            end{title '结束日期'},
+            effort{title '工作量'},
+            resources{title '资源'},
+            #note {title '备注' width 150},
+            chart {${TaskTip} width 600}
+    hideresource @all
+}
+resourcereport contact_list "" {
+  headline "资源列表"
+  columns name{title '名称'},
+          email{title '电子邮件' celltext 1 "[mailto:<-email-> <-email->]"},
+          Phone{title '电话'},
+          chart{scale day width 800}
+  hideresource ~isleaf()
+  sortresources name.up
+  hidetask @all
+}
+resourcereport resource_graph "" {
+    scenarios actual
+    headline "资源分配"
+    columns no{title '序号'},
+            name{title '名称'},
+            effort{title '工作量'},
+            rate{title '费率'},
+            weekly{${TaskTip} width 800}
+    loadunit shortauto
+    # We only like to show leaf tasks for leaf resources.
+    hidetask ~(isleaf() & isleaf_())
+    sorttasks plan.start.up
+}
