@@ -316,7 +316,7 @@
 ;; add css for org-mode export to html files
 ;; Use org.css from the norang website for export document stylesheets
 ;;(setq org-html-head-extra "<link rel=\"stylesheet\" href=\"./org.css\" type=\"text/css\" />")
-(setq org-html-head-extra "<style type=\"text/css\">body{margin:
+(setq org-html-head-extra "<script type=\"text/javascript\">var mytable = document.getElementsByTagName('td');for ( var e = \"\"; e < mytable.length; e ++ ) {if(e.innerHTML == \"level1\"){e.parentNode.style.backgroundColor=\"color=blue\";};  if(e.innerHTML == \"level2\"){    e.parentNode.style.backgroundColor=\"color=orange\";  };  if(e.innerHTML == \"level3\"){    e.parentNode.style.backgroundColor=\"color=magenta\";  };  if(e.innerHTML == \"level4\"){    e.parentNode.style.backgroundColor=\"color=gree\";  };}</script><style type=\"text/css\">body{margin:
 1em; border-right: 5px solid #bbb; border-bottom: 5px solid #bbb;
 padding: 0; background: #ddd none repeat scroll 0 0; border: 1px
 solid #000; margin: 0; padding: 2em; color: #000;
@@ -350,7 +350,7 @@ border-collapse: collapse; margin: .5em 0;}th, td{border: 1px
 solid #777; padding: .3em; margin: 2px;}th{background:
 #eee;}span.underline{text-decoration:
 underline;}.fixme{background: #ff0; font-weight:
-bold;}.ra{text-align: right;}span.todo.NEXT{color:blue;}span.todo.STARTED{color:green;}span.todo.WAITTING{color:orange;}span.todo.HOLD{color:magenta;}.tag{font-size:124%;}</style>")
+bold;}.ra{text-align: right;}span.todo.NEXT{color:blue;}span.todo.STARTED{color:green;}span.todo.WAITTING{color:orange;}span.todo.HOLD{color:magenta;}.tag{font-size:124%;}#table_level1{color:blue}#table_level2{color:orange}#table_level3{color:magenta}#table_level4{color:green}#table_level5{color:grey}</style>")
 
 
 
@@ -564,8 +564,11 @@ marginparsep=7pt, marginparwidth=.6in}
 (run-at-time "00:59" 3600 'org-save-all-org-buffers)
 
 
+;; set export table's format
+(setq org-table-export-default-format "orgtbl-to-csv")
 
-
+(custom-set-variables
+ '(org-export-table-data-tags '("<tr class=\"CUSTOM_ID>" . "</t>")))
 
 (provide 'init-my-orge)
 ;; init-my-org.el end here

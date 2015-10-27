@@ -18,7 +18,7 @@ balance cost revenue")
 
 
 
-;;(setq org-taskjuggler-default-reports '("include "reports.tji""))
+(setq org-taskjuggler-default-reports '("include "reports.tji""))
 
 
 (defun org-taskjuggler-generate-reports ()
@@ -35,7 +35,7 @@ balance cost revenue")
     (start-process-shell-command process-name nil command))
   (message "Generate Reports...Done"))
 
-;;(add-hook 'org-taskjuggler-final-hook 'org-taskjuggler-generate-reports)
+(add-hook 'org-taskjuggler-final-hook 'org-taskjuggler-generate-reports)
 
 (provide 'init-taskjuggler)
 ;; init-taskjuggler.el end here
