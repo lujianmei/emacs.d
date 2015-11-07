@@ -113,9 +113,17 @@
 
 
 ;;----------------------------------------------------------------------------
-;; load my config
+;; load tern
 ;;----------------------------------------------------------------------------
+;; load tern, a tools for javascript, need to download tern manually from: https://github.com/ternjs/tern
+(add-to-list 'load-path "~/.emacs.d/site-lisp/tern/emacs/")
+(autoload 'tern-mode "tern.el" nil t)
 
+;; auto load tern-mode on js-mode
+(add-hook 'js-mode-hook (lambda () (tern-mode t)))
+
+;; (require-package 'tern)
+(require-package 'tern-auto-complete)
 
 ;;----------------------------------------------------------------------------
 ;; Mutt config
