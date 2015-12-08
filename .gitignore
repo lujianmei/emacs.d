@@ -44,6 +44,7 @@ site-lisp/package/
 /.sx/
 /org-clock-save.el
 
+
 /games/
 /places
 
@@ -71,8 +72,9 @@ core.*
 *.png
 *.toc
 
+
+
 /ditaa*.jar
 /ido.last
 /recentf
 /viper
-
