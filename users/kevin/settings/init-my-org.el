@@ -404,7 +404,7 @@ bold;}.ra{text-align: right;}span.todo.NEXT{color:blue;}span.todo.STARTED{color:
 \\usepackage{latexsym}
 \\usepackage{natbib}
 \\usepackage{fancyhdr}
-\\usepackage{comment}
+%\\usepackage{comment}
 
 \\usepackage{zhfontcfg} % added my own sty file under /usr/local/texlive/texmf-local/tex/latex/local
 
@@ -433,7 +433,6 @@ marginparsep=7pt, marginparwidth=.6in}
 \\definecolor{comdil}{RGB}{111,128,111}%深灰
 \\definecolor{constant}{RGB}{220,162,170}%粉红
 \\definecolor{buildin}{RGB}{127,159,127}%深铅绿
-\\punctstyle{kaiming}
 \\title{}
 \\fancyfoot[C]{\\bfseries\\thepage}
 \\chead{\\MakeUppercase\\sectionmark}
@@ -454,8 +453,8 @@ marginparsep=7pt, marginparwidth=.6in}
       '(
         ("basicstyle" "\\color{foreground}\\small\\mono")           ; 源代码字体样式
         ("keywordstyle" "\\color{function}\\bfseries\\small\\mono") ; 关键词字体样式
-        ("identifierstyle" "\\color{doc}\\small\\mono")
-        ("commentstyle" "\\color{comment}\\small\\itshape")         ; 批注样式
+        ;;("identifierstyle" "\\color{doc}\\small\\mono")
+        ;;("commentstyle" "\\color{comment}\\small\\itshape")         ; 批注样式
         ("stringstyle" "\\color{string}\\small")                    ; 字符串样式
         ("showstringspaces" "false")                                ; 字符串空格显示
         ("numbers" "left")                                          ; 行号显示
@@ -487,6 +486,7 @@ marginparsep=7pt, marginparwidth=.6in}
    (matlab . t)
    (C . t)
    (perl . t)
+   ;;(objc . t)
    (sh . t)
    (ditaa . t)
    (plantuml . t)
