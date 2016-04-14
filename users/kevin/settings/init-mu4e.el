@@ -11,6 +11,8 @@
 ;; Reading email config
 ;;(setq mu4e-maildir "~/.mutt/mails/lu.jianmei")
 (setq mu4e-maildir "~/Maildir/lu.jianmei")
+(setq mu4e-attachment-dir "~/MailAttachments")
+
 (setq mu4e-drafts-folder "/草稿箱"
       mu4e-sent-folder   "/已发送"  ;; config for the sent, drafts folder mapping in Maildir (synced by offlineimap)
       mu4e-trash-folder  "/已删除"

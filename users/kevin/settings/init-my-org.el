@@ -350,7 +350,7 @@ border-collapse: collapse; margin: .5em 0;}th, td{border: 1px
 solid #777; padding: .3em; margin: 2px;}th{background:
 #eee;}span.underline{text-decoration:
 underline;}.fixme{background: #ff0; font-weight:
-bold;}.ra{text-align: right;}span.todo.NEXT{color:blue;}span.todo.STARTED{color:green;}span.todo.WAITTING{color:orange;}span.todo.HOLD{color:magenta;}.tag{font-size:124%;}#table_level1{color:blue}#table_level2{color:orange}#table_level3{color:magenta}#table_level4{color:green}#table_level5{color:grey}</style>")
+bold;}.ra{text-align: right;}span.todo.NEXT{color:blue;}span.todo.STARTED{color:green;}span.todo.WAITTING{color:orange;}span.todo.HOLD{color:magenta;}.tag{font-size:124%;}#table_level1{color:blue}#table_level2{color:orange}#table_level3{color:magenta}#table_level4{color:green}#table_level5{color:grey}img{max-width: 100%;}</style>")
 
 
 
